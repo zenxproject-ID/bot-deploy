@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deploy Web Panel — ZYYROO</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="bg-animated"></div>
+<div class="bg-grid"></div>
+
+<header class="topbar">
+  <div class="logo">
+    <div class="logo-icon">⚡</div>
+    <div>
+      <h1>DEPLOY PANEL</h1>
+      <span class="subtitle">Powered by Vercel</span>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <div class="status-pill"><span class="dot"></span> ONLINE</div>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="card glass auth-card">
+    <div class="card-header">
+      <span class="card-icon">🔐</span>
+      <h2>Masukkan Secret Key</h2>
+    </div>
+    <p class="desc">Secret key ada di file <code>.env</code></p>
+    <div class="input-row">
+      <input type="password" id="secretKey" placeholder="Masukkan secret key..." />
+      <button class="btn primary" onclick="saveKey()">Simpan</button>
+    </div>
+  </section>
+
+  <section class="stats-grid">
+    <div class="stat-card glass">
+      <div class="stat-icon">👥</div>
+      <div><span class="stat-label">Total Users</span><span class="stat-value" id="statUsers">0</span></div>
+    </div>
+    <div class="stat-card glass">
+      <div class="stat-icon">🌐</div>
+      <div><span class="stat-label">Total Websites</span><span class="stat-value" id="statWebsites">0</span></div>
+    </div>
+    <div class="stat-card glass">
+      <div class="stat-icon">🚀</div>
+      <div><span class="stat-label">Uptime</span><span class="stat-value" id="statUptime">0s</span></div>
+    </div>
+  </section>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="create">🚀 Deploy Web</button>
+    <button class="tab" data-tab="list">📁 Website Saya</button>
+    <button class="tab" data-tab="obfuscate">🔒 Obfuscate</button>
+    <button class="tab" data-tab="scrape">🕷️ Scraper HTML</button>
+  </div>
+
+  <section class="tab-content active" id="tab-create">
+    <div class="card glass">
+      <div class="card-header"><span class="card-icon">🚀</span><h2>Deploy Website Baru</h2></div>
+      <div class="form-group">
+        <label>Nama Website</label>
+        <input type="text" id="webName" placeholder="contoh: toko-saya" />
+        <small>Hanya huruf kecil, angka, tanda hubung. Min 3 karakter</small>
+      </div>
+      <div class="form-group">
+        <label>File HTML</label>
+        <div class="file-drop" id="fileDrop">
+          <input type="file" id="fileInput" accept=".html" hidden />
+          <div class="file-drop-content">
+            <span class="file-icon">📄</span>
+            <span id="fileName">Klik atau drop file .html di sini</span>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Nama Owner (opsional)</label>
+        <input type="text" id="ownerName" placeholder="Nama kamu" />
+      </div>
+      <button class="btn primary large" onclick="deployWebsite()">⚡ Deploy ke Vercel</button>
+      <div id="deployResult" class="result-box"></div>
+    </div>
+  </section>
+
+  <section class="tab-content" id="tab-list">
+    <div class="card glass">
+      <div class="card-header">
+        <span class="card-icon">📁</span><h2>Website Terdaftar</h2>
+        <button class="btn small" onclick="loadWebsites()">🔄 Refresh</button>
+      </div>
+      <div id="websiteList" class="website-list"><div class="empty">Loading...</div></div>
+    </div>
+  </section>
+
+  <section class="tab-content" id="tab-obfuscate">
+    <div class="card glass">
+      <div class="card-header"><span class="card-icon">🔒</span><h2>Obfuscate File</h2></div>
+      <div class="form-group">
+        <label>Pilih tipe</label>
+        <div class="radio-group">
+          <label class="radio-pill active"><input type="radio" name="obfType" value="js" checked> JavaScript (.js)</label>
+          <label class="radio-pill"><input type="radio" name="obfType" value="html"> HTML (.html)</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>File</label>
+        <div class="file-drop" id="obfDrop">
+          <input type="file" id="obfInput" hidden />
+          <div class="file-drop-content">
+            <span class="file-icon">🔒</span>
+            <span id="obfFileName">Klik untuk pilih file</span>
+          </div>
+        </div>
+      </div>
+      <button class="btn primary large" onclick="obfuscateFile()">🔐 Obfuscate</button>
+      <div id="obfResult" class="result-box"></div>
+    </div>
+  </section>
+
+  <section class="tab-content" id="tab-scrape">
+    <div class="card glass">
+      <div class="card-header"><span class="card-icon">🕷️</span><h2>Ambil Source Code HTML</h2></div>
+      <div class="form-group">
+        <label>URL</label>
+        <input type="text" id="scrapeUrl" placeholder="https://example.com" />
+      </div>
+      <button class="btn primary large" onclick="scrapeUrl()">🕷️ Scrape Sekarang</button>
+      <div id="scrapeResult" class="result-box"></div>
+    </div>
+  </section>
+
+</main>
+
+<footer><p>© 2025 <strong>ZYYROO OFFICIAL</strong> — Deploy Web Panel v3.0</p></footer>
+
+<script src="script.js"></script>
+</body>
+  </html>
